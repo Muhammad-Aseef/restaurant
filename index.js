@@ -23,9 +23,10 @@ mongoose
 
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
-const postRouter = require("./routes/postRoutes");
+const menuRouter = require("./routes/menuRoutes");
+const dealRouter = require("./routes/dealRoutes");
+const orderRouter = require("./routes/orderRoutes");
 const userRouter = require("./routes/userRoutes");
-const commentRouter = require("./routes/commentRoutes");
 
 const app = express();
 
@@ -46,8 +47,9 @@ app.use("/api", limiter);
 app.use(mongoSanitize());
 
 app.use("/api/users", userRouter);
-app.use("/api/posts", postRouter);
-app.use("/api/comments", commentRouter);
+app.use("/api/menus", menuRouter);
+app.use("/api/deals", dealRouter);
+app.use("/api/orders", orderRouter);
 
 app.all("*", (req, res, next) => {
   console.log(req);

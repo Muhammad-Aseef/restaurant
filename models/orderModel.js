@@ -16,7 +16,11 @@ const orderSchema = new mongoose.Schema(
         },
       },
     ],
-
+    dealID: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "Deal",
+      default: null,
+    },
     address: {
       type: String,
       required: [true, "order must have image"],

@@ -11,6 +11,11 @@ const menuSchema = new mongoose.Schema(
       type: Number,
       required: [true, "menu must have price"],
     },
+    status: {
+      type: String,
+      default: "active",
+      enum: ["active", "inactive"],
+    },
   },
   { timestamps: true }
 );
