@@ -52,14 +52,12 @@ app.use("/api/deals", dealRouter);
 app.use("/api/orders", orderRouter);
 
 app.all("*", (req, res, next) => {
-  console.log(req);
+  // console.log(req);
   // res.status(404).json({
   //   status: "failed",
   //   message: `canno't find the ${req.originalUrl} on this server.`,
   // });
-  next(
-    new AppError(`canno't find the ${req.originalUrl} on this server.`, 404)
-  );
+  next(new AppError(`canno't find the ${req.originalUrl} on this server.`, 404));
 });
 
 app.use(globalErrorHandler);

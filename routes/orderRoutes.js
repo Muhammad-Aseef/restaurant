@@ -10,7 +10,7 @@ router
 
 router
   .route("/:id")
-  .get(orderController.getorder)
+  .get(orderController.getOrder)
   .patch(authController.protect, orderController.updateOrder)
   .delete(authController.protect, orderController.deleteOrder);
 

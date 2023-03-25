@@ -6,6 +6,7 @@ const menuSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: [true, "menu must have name"],
+      unique: true,
     },
     price: {
       type: Number,
@@ -19,10 +20,6 @@ const menuSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
-menuSchema.pre("save", function () {
-  this.likesCount = this.likes.length;
-});
 
 const Menu = mongoose.model("Menu", menuSchema);
 

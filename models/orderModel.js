@@ -7,20 +7,28 @@ const orderSchema = new mongoose.Schema(
         menuId: {
           type: mongoose.SchemaTypes.ObjectId,
           ref: "Menu",
-          required: true,
+          // required: true,
         },
         quantity: {
           type: Number,
-          required: true,
+          // required: true,
           default: 1,
         },
       },
     ],
-    dealID: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: "Deal",
-      default: null,
-    },
+    deals: [
+      {
+        dealId: {
+          type: mongoose.SchemaTypes.ObjectId,
+          ref: "Deal",
+          // required: true,
+        },
+        quantity: {
+          type: Number,
+          default: 1,
+        },
+      },
+    ],
     address: {
       type: String,
       required: [true, "order must have image"],

@@ -74,8 +74,9 @@ exports.changeStatus = catchAsync(async (req, res, next) => {
   if (!menu) {
     return next(new AppError("no data found!", 404));
   }
-  if (menu.status == "active") menu.status = "inactive";
-  else menu.status = "active";
+  // if (menu.status == "active") menu.status = "inactive";
+  // else menu.status = "active";
+  menu.status == "active" ? (menu.status = "inactive") : (menu.status = "active");
 
   await menu.save();
 

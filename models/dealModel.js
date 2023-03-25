@@ -25,10 +25,15 @@ const dealSchema = new mongoose.Schema(
         },
       },
     ],
+    status: {
+      type: String,
+      default: "active",
+      enum: ["active", "inactive"],
+    },
   },
   { timestamps: true }
 );
 
-const Menu = mongoose.model("Menu", dealSchema);
+const Deal = mongoose.model("Deal", dealSchema);
 
-module.exports = Menu;
+module.exports = Deal;

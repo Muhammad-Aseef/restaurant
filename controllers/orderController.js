@@ -27,16 +27,6 @@ exports.getOrder = catchAsync(async (req, res, next) => {
 exports.createOrder = catchAsync(async (req, res, next) => {
   req.body.user = req.user.id;
 
-  if (req.body.dealID) {
-    const deal = await Deal.findById(req.body.dealID);
-    if (!deal) {
-      return next(new AppError(`no deal found with id ${req.body.deal}`, 404));
-    }
-
-    req.body.order = deal.items;
-    req.body.total = deal.price;
-  }
-
   const newOrder = await Order.create(req.body);
 
   res.status(201).json({

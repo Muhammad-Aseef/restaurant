@@ -6,12 +6,14 @@ const authController = require("../controllers/authController");
 router
   .route("/")
   .get(dealController.getAllDeals)
-  .post(dealController.createDeal); //authController.protect,
+  .post(authController.protect, dealController.createDeal);
+
+router.route("/changeStatus/:id").patch(authController.protect, dealController.changeStatus);
 
 router
   .route("/:id")
   .get(dealController.getDeal)
-  .patch(dealController.updateDeal) //authController.protect,
-  .delete(dealController.deleteDeal); //authController.protect,
+  .patch(authController.protect, dealController.updateDeal)
+  .delete(authController.protect, dealController.deleteDeal);
 
 module.exports = router;
