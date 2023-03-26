@@ -5,8 +5,12 @@ const authController = require("../controllers/authController");
 
 router
   .route("/")
-  .get(orderController.getAllOrders)
+  .get(authController.protect, orderController.getAllOrders)
   .post(orderController.createOrder);
+
+router.route("/bystatus").get(authController.protect, orderController.byStatus);
+router.route("/cancel").patch(orderController.cancelOrder);
+router.route("/changeStatus").patch(authController.protect, orderController.changeStatus);
 
 router
   .route("/:id")
