@@ -52,6 +52,12 @@ const orderSchema = new mongoose.Schema(
       enum: ["placed", "onway", "delivered", "cancelled"],
       default: "placed",
     },
+    rating: {
+      type: Number,
+      min: 0,
+      max: 5,
+      default: 0,
+    },
   },
   { timestamps: true }
 );

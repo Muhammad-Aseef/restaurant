@@ -11,6 +11,7 @@ router
 router.route("/bystatus").get(authController.protect, orderController.byStatus);
 router.route("/cancel").patch(orderController.cancelOrder);
 router.route("/changeStatus").patch(authController.protect, orderController.changeStatus);
+router.route("/rating").patch(orderController.rating);
 
 router
   .route("/:id")

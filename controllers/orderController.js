@@ -33,6 +33,7 @@ exports.getOrder = catchAsync(async (req, res, next) => {
 
 exports.createOrder = catchAsync(async (req, res, next) => {
   req.body.status = "placed";
+  req.body.rating = 0;
   const newOrder = await Order.create(req.body);
 
   res.status(201).json({
@@ -121,6 +122,25 @@ exports.changeStatus = catchAsync(async (req, res, next) => {
 
   if (order.status == "placed") order.status = "onway";
   else order.status = "delivered";
+
+  await order.save();
+
+  res.status(200).json({
+    status: "success",
+    data: order,
+  });
+});
+
+exports.rating = catchAsync(async (req, res, next) => {
+  const order = await Order.findOne({
+    $and: [{ _id: req.body.orderId }, { status: "delivered" }],
+  });
+
+  if (!order) {
+    return next(new AppError("no data found!", 404));
+  }
+
+  order.rating = req.body.rating;
 
   await order.save();
 

@@ -1,0 +1,278 @@
+[
+  {
+    "order": [],
+    "deals": [
+      {
+        "dealId": "641f0d0a85096310d968b157",
+        "quantity": 1
+      }
+    ],
+    "address": "xyz road, khi",
+    "email": "hhh@gmail.com",
+    "contact": 99738282,
+    "total": 1299,
+    "status": "placed",
+    "rating": 0
+  },
+  {
+    "order": [],
+    "deals": [
+      {
+        "dealId": "641f0d0a85096310d968b157",
+        "quantity": 3
+      }
+    ],
+    "address": "pqr palace, khi",
+    "email": "pp@gmail.com",
+    "contact": 889965,
+    "total": 3897,
+    "status": "delivered",
+    "rating": 5
+  },
+  {
+    "order": [
+      {
+        "menuId": "641eeb881e8a4c6ea0b9ce00",
+        "quantity": 2
+      }
+    ],
+    "deals": [
+      {
+        "dealId": "641f0d6985096310d968b15c",
+        "quantity": 1
+      }
+    ],
+    "address": "abc road, khi",
+    "email": "abc@gmail.com",
+    "contact": 99738282,
+    "total": 1120,
+    "status": "onway",
+    "rating": 0
+  },
+  {
+    "order": [
+      {
+        "menuId": "641eeb881e8a4c6ea0b9ce00",
+        "quantity": 2
+      },
+      {
+        "menuId": "641eeba11e8a4c6ea0b9ce03",
+        "quantity": 2
+      },
+      {
+        "menuId": "641eeb201e8a4c6ea0b9cdf5",
+        "quantity": 2
+      }
+    ],
+    "deals": [],
+    "address": "abc road, khi",
+    "email": "abcft@gmail.com",
+    "contact": 889436,
+    "total": 1399,
+    "status": "onway",
+    "rating": 0
+  },
+  {
+    "order": [
+      {
+        "menuId": "641eeb201e8a4c6ea0b9cdf5",
+        "quantity": 1
+      },
+      {
+        "menuId": "641eebec1e8a4c6ea0b9ce0a",
+        "quantity": 3
+      }
+    ],
+    "deals": [
+      {
+        "dealId": "641f0d6985096310d968b15c",
+        "quantity": 1
+      }
+    ],
+    "address": "fgsh road, khi",
+    "email": "fgsh@gmail.com",
+    "contact": 99738282,
+    "total": 1700,
+    "status": "delivered",
+    "rating": 4
+  },
+  {
+    "order": [
+      {
+        "menuId": "641eebec1e8a4c6ea0b9ce0a",
+        "quantity": 3
+      }
+    ],
+    "deals": [],
+    "address": "fgsh road, khi",
+    "email": "fgsh@gmail.com",
+    "contact": 99738282,
+    "total": 1399,
+    "status": "delivered",
+    "rating": 4
+  },
+  {
+    "order": [
+      {
+        "menuId": "641eebb01e8a4c6ea0b9ce06",
+        "quantity": 3
+      },
+      {
+        "menuId": "641eeb881e8a4c6ea0b9ce00",
+        "quantity": 1
+      }
+    ],
+    "deals": [],
+    "address": "ihhs road, khi",
+    "email": "ihhs@gmail.com",
+    "contact": 90653258,
+    "total": 2400,
+    "status": "placed",
+    "rating": 0
+  },
+  {
+    "order": [
+      {
+        "menuId": "641eebb01e8a4c6ea0b9ce06",
+        "quantity": 3
+      },
+      {
+        "menuId": "641eeb881e8a4c6ea0b9ce00",
+        "quantity": 1
+      }
+    ],
+    "deals": [],
+    "address": "ihhs road, khi",
+    "email": "ihhs@gmail.com",
+    "contact": 90653258,
+    "total": 2200,
+    "status": "onway",
+    "rating": 0
+  },
+  {
+    "order": [],
+    "deals": [
+      {
+        "dealId": "641f0e6285096310d968b174",
+        "quantity": 2
+      }
+    ],
+    "address": "xyz road, khi",
+    "email": "hhh@gmail.com",
+    "contact": 99738282,
+    "total": 1299,
+    "status": "delivered",
+    "rating": 3
+  },
+  {
+    "order": [],
+    "deals": [
+      {
+        "dealId": "641f0e6285096310d968b174",
+        "quantity": 5
+      }
+    ],
+    "address": "xyz road, khi",
+    "email": "gga@gmail.com",
+    "contact": 99738282,
+    "total": 3650,
+    "status": "onway",
+    "rating": 0
+  },
+  {
+    "order": [
+      {
+        "menuId": "641eeb201e8a4c6ea0b9cdf5",
+        "quantity": 1
+      },
+      {
+        "menuId": "641eebec1e8a4c6ea0b9ce0a",
+        "quantity": 2
+      }
+    ],
+    "deals": [
+      {
+        "dealId": "641f0d6985096310d968b15c",
+        "quantity": 2
+      }
+    ],
+    "address": "reds road, khi",
+    "email": "reds@gmail.com",
+    "contact": 997386482,
+    "total": 2199,
+    "status": "onway",
+    "rating": 0
+  },
+  {
+    "order": [
+      {
+        "menuId": "641eeb201e8a4c6ea0b9cdf5",
+        "quantity": 1
+      },
+      {
+        "menuId": "641eebec1e8a4c6ea0b9ce0a",
+        "quantity": 2
+      }
+    ],
+    "deals": [
+      {
+        "dealId": "641f0d6985096310d968b15c",
+        "quantity": 2
+      }
+    ],
+    "address": "reds road, khi",
+    "email": "reds@gmail.com",
+    "contact": 997386482,
+    "total": 2199,
+    "status": "placed",
+    "rating": 0
+  },
+  {
+    "order": [
+      {
+        "menuId": "641eeb201e8a4c6ea0b9cdf5",
+        "quantity": 1
+      }
+    ],
+    "deals": [
+      {
+        "dealId": "641f0d6985096310d968b15c",
+        "quantity": 2
+      }
+    ],
+    "address": "ddd road, khi",
+    "email": "ddd@gmail.com",
+    "contact": 787543,
+    "total": 1780,
+    "status": "placed",
+    "rating": 0
+  },
+  {
+    "order": [
+      {
+        "menuId": "641eeb881e8a4c6ea0b9ce00",
+        "quantity": 3
+      },
+      {
+        "menuId": "641eeba11e8a4c6ea0b9ce03",
+        "quantity": 2
+      },
+      {
+        "menuId": "641eeb201e8a4c6ea0b9cdf5",
+        "quantity": 1
+      }
+    ],
+    "deals": [
+      {
+        "dealId": "641f0d6985096310d968b15c",
+        "quantity": 2
+      }
+    ],
+    "address": "abgjgc road, khi",
+    "email": "abcft@gmail.com",
+    "contact": 89589436,
+    "total": 5200,
+    "status": "placed",
+    "rating": 0
+  }
+]
