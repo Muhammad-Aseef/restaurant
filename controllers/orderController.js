@@ -72,7 +72,7 @@ exports.deleteOrder = catchAsync(async (req, res, next) => {
 
 exports.byStatus = catchAsync(async (req, res, next) => {
   if (!req.query.status) {
-    return next(new AppError("Invalid Request", 404));
+    return next(new AppError("Invalid Request", 400));
   }
 
   const orders = await Order.find({ status: req.query.status });
@@ -147,5 +147,54 @@ exports.rating = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: "success",
     data: order,
+  });
+});
+
+exports.filter = catchAsync(async (req, res, next) => {
+  // const queryObj = { ...req.query };
+  // const excludedFields = ["page", "sort"];
+  // excludedFields.forEach((el) => delete queryObj[el]);
+
+  const { duration, status } = req.query;
+
+  if (!duration || status == undefined) {
+    return next(new AppError("Invalid request", 400));
+  }
+
+  const allowedDuration = ["today", "week", "month", "year"];
+  const allowedStatus = ["", "placed", "onway", "delivered", "cancelled"]; // status = "" means all
+
+  // console.log(duration, status);
+  if (
+    !allowedDuration.includes(duration.toLowerCase()) ||
+    !allowedStatus.includes(status.toLowerCase())
+  ) {
+    return next(new AppError("Invalid request...", 400));
+  }
+
+  // let today = new Date().toISOString();
+  // console.log(today);
+  // const orders = await Order.find({
+  //   createdAt: { $gte: today.split("T")[0] },
+  // });
+
+  // for status ""
+  const orders = await Order.aggregate([
+    {
+      $group: {
+        _id: "$status",
+        total: { $sum: 1 },
+        orders: {
+          $push: { orderId: "$_id", price: "$price", contact: "$contact", email: "$email" },
+        },
+      },
+    },
+  ]);
+  // orders: { $push: "$$ROOT" }
+
+  res.status(200).json({
+    status: "success",
+    result: orders.length,
+    data: orders,
   });
 });
