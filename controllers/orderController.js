@@ -1,3 +1,4 @@
+var moment = require("moment");
 const Order = require("../models/orderModel");
 const Deal = require("../models/dealModel");
 const AppError = require("../utils/appError");
@@ -155,7 +156,7 @@ exports.filter = catchAsync(async (req, res, next) => {
   // const excludedFields = ["page", "sort"];
   // excludedFields.forEach((el) => delete queryObj[el]);
 
-  const { duration, status } = req.query;
+  let { duration, status } = req.query;
 
   if (!duration || status == undefined) {
     return next(new AppError("Invalid request", 400));
@@ -164,37 +165,91 @@ exports.filter = catchAsync(async (req, res, next) => {
   const allowedDuration = ["today", "week", "month", "year"];
   const allowedStatus = ["", "placed", "onway", "delivered", "cancelled"]; // status = "" means all
 
+  duration = duration.toLowerCase();
+  status = status.toLowerCase();
+
   // console.log(duration, status);
-  if (
-    !allowedDuration.includes(duration.toLowerCase()) ||
-    !allowedStatus.includes(status.toLowerCase())
-  ) {
+  if (!allowedDuration.includes(duration) || !allowedStatus.includes(status)) {
     return next(new AppError("Invalid request...", 400));
   }
 
-  // let today = new Date().toISOString();
-  // console.log(today);
-  // const orders = await Order.find({
-  //   createdAt: { $gte: today.split("T")[0] },
-  // });
+  let start = new Date(moment().startOf("day"));
+  // const end = new Date();
+  if (duration == "week") {
+    start = new Date(moment().subtract(1, "weeks").startOf("day"));
+  } else if (duration == "month") {
+    start = new Date(moment().subtract(1, "months").startOf("day"));
+  } else if (duration == "year") {
+    start = new Date(moment().subtract(1, "years").startOf("day"));
+  }
+  // console.log(start);
+  // console.log(
+  //   moment().subtract(1, duration).startOf("day").format("dddd, MMMM Do YYYY, h:mm:ss a")
+  // );
 
-  // for status ""
-  const orders = await Order.aggregate([
-    {
-      $group: {
-        _id: "$status",
-        total: { $sum: 1 },
-        orders: {
-          $push: { orderId: "$_id", price: "$price", contact: "$contact", email: "$email" },
+  let orders;
+  if (status == "") {
+    orders = await Order.aggregate([
+      {
+        $match: { updatedAt: { $gte: start } },
+      },
+      {
+        $group: {
+          _id: "$status",
+          total: { $sum: 1 },
+          orders: {
+            $push: {
+              orderId: "$_id",
+              price: "$price",
+              contact: "$contact",
+              email: "$email",
+              // createdAt: "$createdAt",
+              // updatedAt: "$updatedAt",
+            },
+          },
         },
       },
-    },
-  ]);
-  // orders: { $push: "$$ROOT" }
+      {
+        $addFields: { status: "$_id" },
+      },
+      {
+        $project: {
+          _id: 0,
+        },
+      },
+    ]);
+    // orders: { $push: "$$ROOT" }
+  } else {
+    orders = await Order.aggregate([
+      {
+        $match: { updatedAt: { $gte: start }, status: status },
+      },
+      {
+        $group: {
+          _id: null,
+          total: { $sum: 1 },
+          orders: {
+            $push: {
+              orderId: "$_id",
+              price: "$price",
+              contact: "$contact",
+              email: "$email",
+              // createdAt: "$createdAt",
+              // updatedAt: "$updatedAt",
+            },
+          },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+        },
+      },
+    ]);
+  }
 
   res.status(200).json({
     status: "success",
-    result: orders.length,
     data: orders,
   });
 });
