@@ -13,6 +13,7 @@ router.route("/cancel").patch(orderController.cancelOrder);
 router.route("/changeStatus").patch(authController.protect, orderController.changeStatus);
 router.route("/rating").patch(orderController.rating);
 router.route("/filter").get(orderController.filter);
+router.route("/filterByYear").get(orderController.filterByYear);
 
 router
   .route("/:id")

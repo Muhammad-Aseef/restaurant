@@ -213,9 +213,7 @@ exports.filter = catchAsync(async (req, res, next) => {
         $addFields: { status: "$_id" },
       },
       {
-        $project: {
-          _id: 0,
-        },
+        $project: { _id: 0 },
       },
     ]);
     // orders: { $push: "$$ROOT" }
@@ -241,12 +239,88 @@ exports.filter = catchAsync(async (req, res, next) => {
         },
       },
       {
-        $project: {
-          _id: 0,
-        },
+        $project: { _id: 0 },
       },
     ]);
   }
+
+  res.status(200).json({
+    status: "success",
+    data: orders,
+  });
+});
+
+exports.filterByYear = catchAsync(async (req, res, next) => {
+  if (!req.query.year || isNaN(req.query.year)) {
+    return next(new AppError("Invalid Request", 400));
+  }
+  // const year = req.query.year * 1
+
+  const start = new Date(moment([req.query.year]).startOf("year"));
+  const end = new Date(moment([req.query.year]).endOf("year"));
+
+  // console.log(start, end);
+
+  // group by status
+  const orders = await Order.aggregate([
+    {
+      $match: { updatedAt: { $gte: start, $lte: end } },
+    },
+    {
+      $group: {
+        _id: "$status",
+        total: { $sum: 1 },
+        orders: {
+          $push: {
+            orderId: "$_id",
+            price: "$price",
+            contact: "$contact",
+            email: "$email",
+            // createdAt: "$createdAt",
+            // updatedAt: "$updatedAt",
+          },
+        },
+      },
+    },
+    {
+      $addFields: { status: "$_id" },
+    },
+    {
+      $project: { _id: 0 },
+    },
+    { $sort: { total: -1 } },
+  ]);
+
+  // group by months
+  // const orders = await Order.aggregate([
+  //   {
+  //     $match: { updatedAt: { $gte: start, $lte: end } },
+  //   },
+  //   {
+  //     $group: {
+  //       _id: { $month: "$updatedAt" },
+  //       total: { $sum: 1 },
+  //       orders: {
+  //         $push: {
+  //           orderId: "$_id",
+  //           price: "$price",
+  //           contact: "$contact",
+  //           email: "$email",
+  //           status: "$status",
+  //         // createdAt: "$createdAt",
+  //        // updatedAt: "$updatedAt",
+  //         },
+  //       },
+  //     },
+  //   },
+  //   {
+  //     $addFields: { month: "$_id" },
+  //   },
+  //   {
+  //     $project: { _id: 0 },
+  //   },
+  //   { $sort: { month: 1 } },
+  // ]);
 
   res.status(200).json({
     status: "success",
