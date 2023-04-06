@@ -3,6 +3,7 @@ const Order = require("../models/orderModel");
 const Deal = require("../models/dealModel");
 const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
+const sendMail = require("../utils/email");
 
 exports.getAllOrders = catchAsync(async (req, res, next) => {
   const orders = await Order.find().populate([
@@ -106,6 +107,14 @@ exports.cancelOrder = catchAsync(async (req, res, next) => {
   order.status = "cancelled";
   await order.save();
 
+  let option = {
+    email: order.email,
+    subject: "Order Cancellation",
+    message: "You order has been cancelled",
+  };
+
+  await sendMail(option);
+
   res.status(200).json({
     status: "success",
     data: order,
@@ -120,11 +129,23 @@ exports.changeStatus = catchAsync(async (req, res, next) => {
   if (!order) {
     return next(new AppError("no data found!", 404));
   }
+  let option = {
+    email: order.email,
+    subject: "Order Status",
+    message: "",
+  };
 
-  if (order.status == "placed") order.status = "onway";
-  else order.status = "delivered";
+  if (order.status == "placed") {
+    order.status = "onway";
+    option.message = "Your Order is on the way.";
+  } else {
+    order.status = "delivered";
+    option.message = "Your Order has been delivered";
+  }
 
   await order.save();
+
+  await sendMail(option);
 
   res.status(200).json({
     status: "success",
